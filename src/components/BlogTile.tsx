@@ -3,28 +3,28 @@ import { Link, useNavigate } from "react-router-dom";
 const posts = [
 	{
 		id: 1,
-		image: "/public/assets/image1.png",
+		image: "/assets/image1.png",
 		title: "Chiny - nowa choroba, czy można się wyleczyć?",
 		category: "Azja",
 		date: "05 lutego 2025",
 	},
 	{
 		id: 2,
-		image: "/public/assets/image1.png",
+		image: "/assets/image1.png",
 		title: "Chiny - nowa choroba, czy można się wyleczyć?",
 		category: "Azja",
 		date: "05 lutego 2025",
 	},
 	{
 		id: 3,
-		image: "/public/assets/image1.png",
+		image: "/assets/image1.png",
 		title: "Chiny - nowa choroba, czy można się wyleczyć?",
 		category: "Azja",
 		date: "05 lutego 2025",
 	},
 	{
 		id: 4,
-		image: "/public/assets/image1.png",
+		image: "/assets/image1.png",
 		title: "Chiny - nowa choroba, czy można się wyleczyć?",
 		category: "Azja",
 		date: "05 lutego 2025",
@@ -64,11 +64,7 @@ const BlogTile = () => {
 								<span>{post.category}</span>
 							</span>
 							<span className="flex items-center space-x-1">
-								<img
-									src="/public/assets/clock.svg"
-									alt="Clock"
-									className="w-4 h-4"
-								/>
+								<img src="/assets/clock.svg" alt="Clock" className="w-4 h-4" />
 								<span>{post.date}</span>
 							</span>
 						</div>
@@ -77,11 +73,7 @@ const BlogTile = () => {
 			))}
 			<div className="flex justify-center">
 				<Link to="/blog-creation" className="mx-auto">
-					<img
-						src="/public/assets/plus.svg"
-						alt="Dodaj Bloga"
-						className="w-20 my-8"
-					/>
+					<img src="/assets/plus.svg" alt="Dodaj Bloga" className="w-20 my-8" />
 				</Link>
 			</div>
 		</div>

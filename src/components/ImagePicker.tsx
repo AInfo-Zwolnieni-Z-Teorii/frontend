@@ -76,22 +76,22 @@ const ImagePicker = ({ onUpdate }) => {
 					</p>
 					<div className="flex space-x-4 mt-4">
 						<img
-							src="/public/assets/image1.png"
+							src="/assets/image1.png"
 							alt="Example 1"
 							className="w-20 h-20 object-cover rounded-md cursor-pointer hover:opacity-80"
 						/>
 						<img
-							src="/public/assets/image1.png"
+							src="/assets/image1.png"
 							alt="Example 2"
 							className="w-20 h-20 object-cover rounded-md cursor-pointer hover:opacity-80"
 						/>
 						<img
-							src="/public/assets/image1.png"
+							src="/assets/image1.png"
 							alt="Example 3"
 							className="w-20 h-20 object-cover rounded-md cursor-pointer hover:opacity-80"
 						/>
 						<img
-							src="/public/assets/image1.png"
+							src="/assets/image1.png"
 							alt="Example 4"
 							className="w-20 h-20 object-cover rounded-md cursor-pointer hover:opacity-80"
 						/>

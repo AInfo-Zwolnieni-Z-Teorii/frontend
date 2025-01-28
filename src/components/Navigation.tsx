@@ -6,7 +6,7 @@ const Navigation = () => {
 			{/* Logo Section */}
 			<div className="flex items-center gap-10 flex-1">
 				<img
-					src="/public/assets/AINFO_LOGO.png"
+					src="/assets/AINFO_LOGO.png"
 					alt="AI Info Logo"
 					className="w-20"
 					aria-label="AI Info Logo"

@@ -43,7 +43,7 @@ const BlogReview = () => {
 				</div>
 				<div className="w-full gap-5 flex justify-end items-center mx-auto my-10">
 					<button className=" border-2 font-bold font-xl rounded-lg border-blue-600 py-5 px-5 text-blue-600 hover:bg-slate-100 hover:border-blue-400 hover:text-blue-400">
-						<img src="/public/assets/edit.png" alt="" />
+						<img src="/assets/edit.png" alt="" />
 					</button>
 					<button className=" border-2 font-bold font-xl rounded-lg border-blue-600 py-5 px-28 text-blue-600 hover:bg-slate-100 hover:border-blue-400 hover:text-blue-400">
 						Potwierdź

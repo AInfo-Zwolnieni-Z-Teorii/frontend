@@ -30,11 +30,7 @@ const BlogForm = ({ onSubmit }) => {
 					type="submit"
 					className="mt-6 w-1/4 mx-auto flex items-center gap-2 justify-center border border-blue-600 text-blue-600 font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
 				>
-					<img
-						src="/public/assets/magic.svg"
-						alt="magic wand"
-						className="w-5 mr-2"
-					/>
+					<img src="/assets/magic.svg" alt="magic wand" className="w-5 mr-2" />
 					<span>STWÓRZ BLOG</span>
 				</button>
 			</form>
