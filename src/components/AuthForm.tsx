@@ -212,14 +212,14 @@ const AuthForm: React.FC<AuthFormProps> = ({
         {isSubmitting ? 'Logowanie...' : buttonText}
       </button>
 
-      {showPrivacyPolicy && (
-        <p className="text-sm text-gray-600 text-center">
-          Rejestrując się, przyjmujesz{' '}
-          <a href="/privacy" className="text-indigo-600 hover:underline">
-            warunki polityki prywatności
+      <div className="text-center text-[14px] text-[#64748B] mt-4">
+        
+        <p className="mt-6">
+          <a href="/sign-in" className="text-[#6366F1] hover:underline">
+            Nie masz konta? Zarejestruj się!
           </a>
         </p>
-      )}
+      </div>
     </form>
   );
 };

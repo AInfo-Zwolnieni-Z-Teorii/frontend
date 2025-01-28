@@ -8,6 +8,7 @@ import BlogCreation from "./pages/BlogCreation";
 import BlogReview from "./pages/BlogReview"; // Import BlogReview
 import Login from "./pages/LogIn";
 import PostSite from "./pages/PostSite";
+import SignIn from "./pages/SignIn";
 
 const App = () => {
   return (
@@ -34,6 +35,8 @@ const App = () => {
           <Route path="/blog-review" element={<BlogReview />} />
           {/* Log In */}
           <Route path="/log-in" element={<Login />} />
+          {/* Sign In */}
+          <Route path="/sign-in" element={<SignIn />} />
           {/* Post */}
           <Route path="/post" element={<PostSite />} />
         </Routes>

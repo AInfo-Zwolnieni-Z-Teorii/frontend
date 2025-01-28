@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 const posts = [
 	{
 		id: 1,
@@ -33,12 +34,13 @@ const posts = [
 
 const BlogTile = () => {
 	const navigate = useNavigate();
+
 	return (
 		<div className="flex flex-col w-4/5 mx-auto space-y-6">
 			{posts.map((post) => (
 				<button
 					key={post.id}
-					className="flex flex-col md:flex-row justify-between rounded-lg py-4"
+					className="flex flex-col md:flex-row justify-between rounded-lg py-4 min-h-40"
 					onClick={() => navigate("/post")}
 				>
 					{/* Image Section */}
@@ -51,22 +53,24 @@ const BlogTile = () => {
 					</div>
 
 					{/* Text Content */}
-					<div className="flex flex-col justify-between w-full md:w-2/3 md:ml-6">
+					<div className="flex flex-col justify-between w-full md:w-2/3 md:ml-6 h-full">
 						{/* Title */}
-						<h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-auto">
+						<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-left">
 							{post.title}
 						</h1>
 
 						{/* Meta Info */}
-						<div className="flex items-center text-sm text-gray-500 mt-auto space-x-4">
-							<span className="flex items-center space-x-1">
-								<span className="font-medium">#</span>
-								<span>{post.category}</span>
-							</span>
-							<span className="flex items-center space-x-1">
-								<img src="/assets/clock.svg" alt="Clock" className="w-4 h-4" />
-								<span>{post.date}</span>
-							</span>
+						<div className="mt-auto">
+							<div className="flex items-center text-sm text-gray-500 space-x-4">
+								<span className="flex items-center space-x-1">
+									<span className="font-medium">#</span>
+									<span>{post.category}</span>
+								</span>
+								<span className="flex items-center space-x-1">
+									<img src="/assets/clock.svg" alt="Clock" className="w-4 h-4" />
+									<span>{post.date}</span>
+								</span>
+							</div>
 						</div>
 					</div>
 				</button>
