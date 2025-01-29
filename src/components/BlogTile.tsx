@@ -40,7 +40,7 @@ const BlogTile = () => {
 			{posts.map((post) => (
 				<button
 					key={post.id}
-					className="flex flex-col md:flex-row justify-between rounded-lg py-4 min-h-40"
+					className="flex flex-col md:flex-row rounded-lg py-4 min-h-40"
 					onClick={() => navigate("/post")}
 				>
 					{/* Image Section */}
@@ -55,7 +55,7 @@ const BlogTile = () => {
 					{/* Text Content */}
 					<div className="flex flex-col justify-between w-full md:w-2/3 md:ml-6 h-full">
 						{/* Title */}
-						<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-left">
+						<h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 text-left">
 							{post.title}
 						</h1>
 

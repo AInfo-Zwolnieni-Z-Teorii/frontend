@@ -101,7 +101,7 @@ const Navigation = () => {
             O nas
           </a>
           <a
-            href="#contact"
+            href="/search"
             className="text-black hover:text-blue-500"
             onClick={toggleMenu}
           >

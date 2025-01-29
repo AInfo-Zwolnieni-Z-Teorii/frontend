@@ -9,6 +9,7 @@ import BlogReview from "./pages/BlogReview"; // Import BlogReview
 import Login from "./pages/LogIn";
 import PostSite from "./pages/PostSite";
 import SignIn from "./pages/SignIn";
+import Search from "./pages/Search";
 
 const App = () => {
   return (
@@ -33,12 +34,15 @@ const App = () => {
           <Route path="/blog-creation" element={<BlogCreation />} />
           {/* Blog Review Page */}
           <Route path="/blog-review" element={<BlogReview />} />
+          {/* search */}
+          <Route path="/search" element={<Search />} />
           {/* Log In */}
           <Route path="/log-in" element={<Login />} />
           {/* Sign In */}
           <Route path="/sign-in" element={<SignIn />} />
           {/* Post */}
           <Route path="/post" element={<PostSite />} />
+          
         </Routes>
         
         <Footer />
