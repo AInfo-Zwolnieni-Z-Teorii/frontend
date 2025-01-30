@@ -10,9 +10,12 @@ import Login from "./pages/LogIn";
 import PostSite from "./pages/PostSite";
 import SignIn from "./pages/SignIn";
 import Search from "./pages/Search";
+import Error404 from "./pages/Error404";
+import ErrorBoundary from "./ErrorBoundary";
 
 const App = () => {
   return (
+    <ErrorBoundary>
     <Router>
       
       <div className="flex align-middle justify-center flex-col w-full h-full">
@@ -42,12 +45,15 @@ const App = () => {
           <Route path="/sign-in" element={<SignIn />} />
           {/* Post */}
           <Route path="/post" element={<PostSite />} />
-          
+          {/* Inne trasy */}
+          <Route path="*" element={<Error404 />} /> {/* Obsługa 404 */}
         </Routes>
         
         <Footer />
       </div>
     </Router>
+    </ErrorBoundary>
+
   );
 };
 

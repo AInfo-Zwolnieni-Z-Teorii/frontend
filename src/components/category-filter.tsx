@@ -19,12 +19,12 @@ export function CategoryFilter() {
   }
 
   return (
-    <div className="grid grid-cols-2 md:flex md:flex-row gap-2 justify-center max-w-2xl mx-auto">
+    <div className="grid grid-cols-2 md:flex md:flex-row gap-2 justify-center w-full mx-auto">
       {categories.map((category) => (
         <Button
           key={category.id}
           isSelected={selectedCategory === category.id}
-          className="w-full md:flex-1"
+          className="w-full md:flex-1 text-sm md:text-lg"
           onClick={() => toggleSelection(category.id)}
         >
           {category.label}

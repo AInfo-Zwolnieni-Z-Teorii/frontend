@@ -17,14 +17,16 @@ const posts = [
 
 export default function Search() {
   return (
-    <div className="container mx-auto px-4 py-8 space-y-8">
-      <h1 className="text-3xl font-bold text-center mb-8">WYSZUKIWANIE BLOGU</h1>
+    <div className="container mx-auto px-4 py-8 space-y-8 w-full"> 
+      <div className="w-full shadow-lg h-auto px-1 sm:px-16 py-12 mx-auto rounded-lg">
+        <h1 className="text-3xl font-bold text-center mb-8">WYSZUKIWANIE BLOGU</h1>
+        <SearchBar />
+        <br /><br />
+        <CategoryFilter />
+      </div>
+      
 
-      <SearchBar />
-
-      <CategoryFilter />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-4/5 mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mx-auto">
         {posts.map((post) => (
           <PostCard key={post.id} title={post.title} imageUrl={post.imageUrl} />
         ))}
