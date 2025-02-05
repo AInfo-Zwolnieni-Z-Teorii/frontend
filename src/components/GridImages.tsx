@@ -2,7 +2,7 @@ import React from "react"
 
 const MainPost = {
   id: 1,
-  image: "/assets/image1.png",
+  image: "/assets/testImage.png",
   title: "Dimi, sigma stepów syn, gyatem serce wiodą, ",
   category: "Rosja",
   date: "23 maja 2025",
@@ -11,21 +11,21 @@ const MainPost = {
 const NewPosts = [
   {
     id: 1,
-    image: "/assets/image1.png",
+    image: "/assets/testImage.png",
     title: "Wraca tam, gdzie świt w Ukrainie słońcem płodą.",
     category: "Rosja",
     date: "23 maja 2025",
   },
   {
     id: 2,
-    image: "/assets/image1.png",
+    image: "/assets/testImage.png",
     title: "Złote łany, duma w piersi, zew wolności w głowie,",
     category: "Azja",
     date: "11 kwietnia 2025",
   },
   {
     id: 3,
-    image: "/assets/image1.png",
+    image: "/assets/testImage.png",
     title: "Matko ziemio, twój ja, Dimi, żyjmy znów w odnowie!",
     category: "Europa",
     date: "28 lutego 2025",
@@ -35,14 +35,14 @@ const NewPosts = [
 const PopularPosts = [
   {
     id: 1,
-    image: "/assets/image1.png",
+    image: "/assets/testImage.png",
     title: "Moskwa - top najlepszych klubów",
     category: "Rosja",
     date: "23 maja 2025",
   },
   {
     id: 2,
-    image: "/assets/image1.png",
+    image: "/assets/testImage.png",
     title: "Filipiny - najlepsze masaże na świecie",
     category: "Azja",
     date: "11 kwietnia 2025",
@@ -107,4 +107,3 @@ const GridImages = () => {
 }
 
 export default GridImages
-

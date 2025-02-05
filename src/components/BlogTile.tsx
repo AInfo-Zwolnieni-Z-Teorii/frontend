@@ -1,87 +1,112 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-const posts = [
-	{
-		id: 1,
-		image: "/assets/image1.png",
-		title: "Chiny - nowa choroba, czy można się wyleczyć?",
-		category: "Azja",
-		date: "05 lutego 2025",
-	},
-	{
-		id: 2,
-		image: "/assets/image1.png",
-		title: "Chiny - nowa choroba, czy można się wyleczyć?",
-		category: "Azja",
-		date: "05 lutego 2025",
-	},
-	{
-		id: 3,
-		image: "/assets/image1.png",
-		title: "Chiny - nowa choroba, czy można się wyleczyć?",
-		category: "Azja",
-		date: "05 lutego 2025",
-	},
-	{
-		id: 4,
-		image: "/assets/image1.png",
-		title: "Chiny - nowa choroba, czy można się wyleczyć?",
-		category: "Azja",
-		date: "05 lutego 2025",
-	},
-];
+import { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
+import type { IPost, IValidationError } from "../interfaces/postList"
+import React from "react"
 
 const BlogTile = () => {
-	const navigate = useNavigate();
+  const defaultLimit = 7
+  const [posts, setPosts] = useState<IPost[] | IValidationError>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
 
-	return (
-		<div className="flex flex-col w-4/5 mx-auto space-y-6">
-			{posts.map((post) => (
-				<button
-					key={post.id}
-					className="flex flex-col md:flex-row rounded-lg py-4 min-h-40"
-					onClick={() => navigate("/post")}
-				>
-					{/* Image Section */}
-					<div className="w-full md:w-1/3 mb-4 md:mb-0">
-						<img
-							src={post.image}
-							alt={post.title}
-							className="rounded-lg w-full h-auto object-cover"
-						/>
-					</div>
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setIsLoading(true)
+      const response = await fetch(`https://ainfo-api.vercel.app/api/posts?limit=${defaultLimit}`)
 
-					{/* Text Content */}
-					<div className="flex flex-col justify-between w-full md:w-2/3 md:ml-6 h-full">
-						{/* Title */}
-						<h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 text-left">
-							{post.title}
-						</h1>
+      if (!response.ok) {
+        console.error("Error fetching posts")
+        setIsLoading(false)
+        return
+      }
 
-						{/* Meta Info */}
-						<div className="mt-auto">
-							<div className="flex items-center text-sm text-gray-500 space-x-4">
-								<span className="flex items-center space-x-1">
-									<span className="font-medium">#</span>
-									<span>{post.category}</span>
-								</span>
-								<span className="flex items-center space-x-1">
-									<img src="/assets/clock.svg" alt="Clock" className="w-4 h-4" />
-									<span>{post.date}</span>
-								</span>
-							</div>
-						</div>
-					</div>
-				</button>
-			))}
-			<div className="flex justify-center">
-				<Link to="/blog-creation" className="mx-auto">
-					<img src="/assets/plus.svg" alt="Dodaj Bloga" className="w-20 my-8" />
-				</Link>
-			</div>
-		</div>
-	);
-};
+      const data: IPost[] | IValidationError = await response.json()
+      console.log(data)
 
-export default BlogTile;
+      setPosts(data)
+      setIsLoading(false)
+    }
+
+    fetchPosts()
+  }, [])
+
+  return (
+    <div className="flex flex-col w-4/5 mx-auto space-y-6">
+      <AnimatePresence>
+        {isLoading ? (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex justify-center items-center h-40"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+              className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full"
+            />
+          </motion.div>
+        ) : Array.isArray(posts) ? (
+          posts.map((post) => (
+            <motion.button
+              key={post.slug}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col md:grid md:grid-cols-[1fr,2fr] place-content-center rounded-lg py-4 min-h-40"
+              onClick={() => navigate(`/post/${post.slug}`)}
+            >
+              {/* Image Section */}
+              <div className="">
+                <img
+                  src={`/assets/${post.thumbnailName}`}
+                  alt={post.title}
+                  className="rounded-lg w-full h-auto object-cover"
+                />
+              </div>
+
+              {/* Text Content */}
+              <div className="h-full flex flex-col justify-between items-start px-4 lg:py-4">
+                {/* Title */}
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 text-left">{post.title}</h1>
+
+                {/* Meta Info */}
+                <div className="mt-auto">
+                  <div className="flex items-center text-sm text-gray-500 space-x-4">
+                    <span className="flex items-center space-x-1">
+                      <span className="font-medium">#</span>
+                      <span>
+                        {post.categories && post.categories.length > 0
+                          ? post.categories.map((category) => category.name).join(", ")
+                          : "Brak kategorii"}
+                      </span>
+                    </span>
+                    <span className="flex items-center space-x-1">
+                      <img src="/assets/clock.svg" alt="Clock" className="w-4 h-4" />
+                      <span>{new Date(post.creationDate).toLocaleDateString()}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.button>
+          ))
+        ) : (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            Wystąpił błąd pobierania postów
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <div className="flex justify-center">
+        <Link to="/blog-creation" className="mx-auto">
+          <img src="/assets/plus.svg" alt="Dodaj Bloga" className="w-20 my-8" />
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+export default BlogTile
+

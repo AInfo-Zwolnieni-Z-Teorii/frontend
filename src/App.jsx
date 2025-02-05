@@ -44,7 +44,7 @@ const App = () => {
           {/* Sign In */}
           <Route path="/sign-in" element={<SignIn />} />
           {/* Post */}
-          <Route path="/post" element={<PostSite />} />
+          <Route path="/post/:slug" element={<PostSite />} />
           {/* Inne trasy */}
           <Route path="*" element={<Error404 />} /> {/* Obsługa 404 */}
         </Routes>

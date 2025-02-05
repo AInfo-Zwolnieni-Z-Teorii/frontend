@@ -18,7 +18,7 @@ const Navigation = () => {
             className="w-20"
             aria-label="AI Info Logo"
           />
-          <h1 className="xl:text-3xl lg:text-2xl text-xl font-bold leading-none">
+          <h1 className="xl:text-3xl lg:text-2xl text-xl font-bold leading-none md:visible invisible">
             <span className="text-main_dark_blue">AI</span>
             <span className="text-black">nfo</span>
           </h1>
