@@ -5,7 +5,7 @@ import type { IPost, IValidationError } from "../interfaces/postList"
 import React from "react"
 
 const BlogTile = () => {
-  const defaultLimit = 7
+  const [limit, setLimit] = useState(7)
   const [posts, setPosts] = useState<IPost[] | IValidationError>([])
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
@@ -13,7 +13,7 @@ const BlogTile = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true)
-      const response = await fetch(`https://ainfo-api.vercel.app/api/posts?limit=${defaultLimit}`)
+      const response = await fetch(`https://ainfo-api.vercel.app/api/posts?limit=${limit}`)
 
       if (!response.ok) {
         console.error("Error fetching posts")
@@ -29,7 +29,11 @@ const BlogTile = () => {
     }
 
     fetchPosts()
-  }, [])
+  }, [limit])
+  const increaseLimit = () => {
+    console.log("Limit increased")
+    setLimit(20) // Ustawia nowy limit na 20
+  }
 
   return (
     <div className="flex flex-col w-4/5 mx-auto space-y-6">
@@ -99,10 +103,10 @@ const BlogTile = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="flex justify-center">
-        <Link to="/blog-creation" className="mx-auto">
-          <img src="/assets/plus.svg" alt="Dodaj Bloga" className="w-20 my-8" />
-        </Link>
+      <div className="flex justify-center mx-auto">
+          <button onClick={increaseLimit} className="focus:outline-none">
+          <img src="/assets/plus.svg" alt="Zwiększ limit" className="w-20 my-8" />
+        </button>
       </div>
     </div>
   )

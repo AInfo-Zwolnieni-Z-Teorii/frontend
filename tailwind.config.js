@@ -11,10 +11,15 @@ export default {
         'half-screen': '50vh', // Example for half of the viewport height
       },
       width: {
-        'w-20': '5rem'
+        'w-20': '5rem',
+        
+      },
+      maxWidth: {
+        'max-w-375': '10px',
       },
       fontFamily: {
-        'text-3.5xl':'3.05rem'
+        'text-3.5xl':'3.05rem',
+        'text-2.5xl':'2.05rem'
       },
       colors: {
         footer_bg: "#abdcff",

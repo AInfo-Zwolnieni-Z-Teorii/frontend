@@ -2,6 +2,7 @@
 
 import React from "react";
 import { FaInstagram, FaFacebook, FaTiktok } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -18,9 +19,13 @@ const Footer = () => {
             <FaTiktok style={{fontSize:"5rem"}}/>
           </a>
         </div>
-        <div className="">
+        <div className="flex flex-col gap-4 md:gap-0 justify-center items-center">
           <p className="font-medium text-2xl sm:text-3xl md:font-text-3.5xl lg:text-4xl xl:text-5xl">aiproject2024@gmail.com</p>
-
+          <p className="font-medium text-xl sm:text-2xl md:font-text-2.5xl lg:text-3xl xl:text-4xl text-gray-800">
+            <Link to={"/privacy-policy"} className="text-gray-500 hover:text-gray-600">
+              Polityka Prywatności
+            </Link>
+          </p>
         </div>
       </div>
       

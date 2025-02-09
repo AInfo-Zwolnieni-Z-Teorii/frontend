@@ -34,27 +34,27 @@ const Navigation = () => {
             Home
           </a>
           <a
-            href="#about"
+            href="/o-nas"
             className="text-black font-light hover:text-blue-500 xl:text-3xl md:text-xl text-lg flex-initial"
             aria-label="Navigate to About Us"
           >
             O&nbsp;nas
           </a>
           <a
-            href="#contact"
+            href="/contact"
             className="text-black font-light hover:text-blue-500 xl:text-3xl md:text-xl text-lg flex-initial"
             aria-label="Navigate to Contact"
           >
             Kontakt
           </a>
-          <a href="/log-in">
+          {/* <a href="/search">
             <button
               className="bg-blue-300 font-light text-blue-600 px-6 py-2 lg:px-12 lg:py-3 xl:px-13 xl:py-3 rounded-full hover:bg-blue-200 xl:text-3xl md:text-xl text-lg flex-2"
               aria-label="Log in to your account"
             >
-              Log&nbsp;in
+              Wyszukaj
             </button>
-          </a>
+          </a> */}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -94,26 +94,26 @@ const Navigation = () => {
             Home
           </a>
           <a
-            href="#about"
+            href="/o-nas"
             className="text-black hover:text-blue-500"
             onClick={toggleMenu}
           >
             O nas
           </a>
           <a
-            href="/search"
+            href="/contact"
             className="text-black hover:text-blue-500"
             onClick={toggleMenu}
           >
             Kontakt
           </a>
-          <a
-            href="/sign-in"
+          {/* <a
+            href="/search"
             className="text-black hover:text-blue-500"
             onClick={toggleMenu}
           >
-            Log in
-          </a>
+            Wyszukaj
+          </a> */}
         </nav>
       </div>
     </>

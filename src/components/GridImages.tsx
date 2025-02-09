@@ -45,12 +45,12 @@ const GridImages = () => {
 	const otherPosts = posts.filter((post) => post != mainPost);
 
 	return (
-		<div className="w-4/5 mx-auto pb-14 pt-3">
-			<div className="md:grid md:grid-cols-3 md:gap-5 md:h-grid-template w-full">
+		<div className="w-4/5 mx-auto pb-14 pt-3 flex align-center justify-center">
+			<div className="md:grid md:grid-cols-3 md:gap-5 md:h-grid-template w-full max-w-[1500px]">
 				<div className="md:col-span-2 md:row-span-2">
 					<div
 						key={mainPost.slug}
-						className="relative bg-cover bg-center shadow overflow-hidden h-[calc(100vh-200px)] md:h-full w-full"
+						className="relative bg-cover bg-center shadow overflow-hidden h-[calc(100vh-200px)] max-w-[1000px] md:h-full w-full"
 						style={{
 							backgroundImage: `url(/assets/${mainPost.thumbnailName})`,
 						}}
@@ -71,10 +71,10 @@ const GridImages = () => {
 						</div>
 					</div>
 				</div>
-				{otherPosts.map((post) => (
+				{otherPosts.slice(0, 5).map((post) => (
 					<div
 						key={post.slug}
-						className="relative bg-cover bg-center shadow overflow-hidden h-64 md:h-full w-full hidden md:block"
+						className="relative bg-cover bg-center shadow overflow-hidden h-64 md:h-full w-full hidden md:block max-w-[500px]"
 						style={{ backgroundImage: `url(/assets/${post.thumbnailName})` }}
 					>
 						<div className="absolute inset-0 bg-black bg-opacity-50"></div>
