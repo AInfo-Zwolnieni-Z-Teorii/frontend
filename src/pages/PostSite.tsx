@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { DetailedPost } from "../interfaces/postSite";
 import { useParams } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
 
 export default function PostSite() {
@@ -61,7 +62,32 @@ export default function PostSite() {
 	}, [slug]);
 
 	if (error) return <div>Error: {error}</div>;
-	if (!post) return <div>Loading...</div>;
+
+	// 🔄 Loading Spinner Animation
+	if (!post)
+		return (
+			<div className="flex justify-center items-center h-40">
+				<AnimatePresence>
+					<motion.div
+						key="loader"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className="flex justify-center items-center"
+					>
+						<motion.div
+							animate={{ rotate: 360 }}
+							transition={{
+								duration: 1,
+								repeat: Number.POSITIVE_INFINITY,
+								ease: "linear",
+							}}
+							className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full"
+						/>
+					</motion.div>
+				</AnimatePresence>
+			</div>
+		);
 
 	return (
 		<article className="max-w-7xl mx-auto px-4 py-8">
