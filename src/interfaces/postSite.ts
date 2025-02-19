@@ -33,6 +33,7 @@ export interface ImageTextContent {
 export interface ContentItem {
 	type: "text" | "image" | "image-text";
 	header?: string;
+	paragraph?: string;
 	anchor?: string;
 	src?: string;
 	alt?: string;

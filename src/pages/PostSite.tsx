@@ -165,9 +165,7 @@ export default function PostSite() {
 											<h2 className="text-2xl font-semibold mb-4">
 												{item.header}
 											</h2>
-											<p className="text-gray-700">
-												{item.text?.[0].paragraph}
-											</p>
+											<p className="text-gray-700">{item.paragraph}</p>
 										</div>
 									);
 								case "image":
