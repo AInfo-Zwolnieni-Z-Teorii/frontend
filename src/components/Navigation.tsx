@@ -11,6 +11,11 @@ const Navigation = () => {
     <>
       <header className="flex items-center py-7 bg-white w-full lg:px-0 px-10 lg:w-4/5 xl:w-4/5 justify-between mx-auto">
         {/* Logo Section */}
+        <a
+            href="/"
+            className="text-black font-light hover:text-blue-500 xl:text-3xl md:text-xl text-lg flex-initial"
+           
+          >
         <div className="flex items-center gap-10 flex-1">
           <img
             src="/assets/AINFO_LOGO.png"
@@ -23,6 +28,7 @@ const Navigation = () => {
             <span className="text-black">nfo</span>
           </h1>
         </div>
+        </a>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center justify-center flex-1 gap-6 sm:gap-5 md:gap-12 lg:gap-16 xl:gap-24" aria-label="Main Navigation">

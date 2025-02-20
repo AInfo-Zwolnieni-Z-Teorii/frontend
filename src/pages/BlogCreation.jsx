@@ -22,7 +22,7 @@ const BlogCreation = () => {
     setFormData((prev) => ({ ...prev, [key]: value }))
   }
 
-  const handleSubmit = (content) => {
+  const handleSubmit = async (content) => {
     const updatedFormData = { ...formData, content }
 
     if (!updatedFormData.name.trim()) {
@@ -40,7 +40,50 @@ const BlogCreation = () => {
     }
    
 
-    navigate("/blog-review", { state: updatedFormData })
+    try {
+      // Step 1: Refresh the session
+      const refreshResponse = await fetch("/api/auth/refresh", {
+        method: "POST",
+        credentials: "include", // Include cookies for authentication
+      })
+
+      if (!refreshResponse.ok) {
+        alert("Sesja wygasła. Proszę zalogować się ponownie.")
+        navigate("/login") // Redirect to login if refresh fails
+        return
+      }
+
+      // Step 2: Proceed to create the blog post
+      const accessToken = localStorage.getItem("accessToken") // Retrieve the token
+
+      const response = await fetch("api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          title: updatedFormData.name,
+          categories: updatedFormData.categories,
+          thumbnailName: updatedFormData.image.name,
+          introduction: {
+            header: "Wprowadzenie do posta",
+            content: "To jest przykładowe wprowadzenie, które opisuje treść posta w skrócie.",
+          },
+          content: updatedFormData.content,
+        }),
+      })
+
+      if (!response.ok) {
+        const data = await response.json()
+        alert(data.errors[0]?.msg || "Wystąpił błąd podczas tworzenia posta")
+        return
+      }
+
+      navigate("/blog-review", { state: updatedFormData })
+    } catch (error) {
+      alert("Wystąpił błąd podczas tworzenia posta")
+    }
   }
 
   return (

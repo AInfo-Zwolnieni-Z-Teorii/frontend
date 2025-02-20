@@ -1,23 +1,37 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CORRECT_CREDENTIALS = {
-  login: "admin",
-  password: "password123",
-};
-
 const Login: React.FC<{ setAuth: (auth: boolean) => void }> = ({ setAuth }) => {
-  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (login === CORRECT_CREDENTIALS.login && password === CORRECT_CREDENTIALS.password) {
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+         
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.errors[0]?.msg || "Niepoprawny login lub hasło");
+        return;
+      }
+
       setAuth(true);
       navigate("/blog-create");
-    } else {
-      setError("Niepoprawny login lub hasło");
+    } catch (error) {
+      setError("Wystąpił błąd podczas logowania");
     }
   };
 
@@ -27,9 +41,9 @@ const Login: React.FC<{ setAuth: (auth: boolean) => void }> = ({ setAuth }) => {
 
       <input
         type="text"
-        placeholder="Login"
-        value={login}
-        onChange={(e) => setLogin(e.target.value)}
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         className="mb-4 p-2 border border-gray-300 rounded"
       />
 

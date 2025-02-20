@@ -8,12 +8,13 @@ const BlogTile = () => {
   const [limit, setLimit] = useState(7)
   const [posts, setPosts] = useState<IPost[] | IValidationError>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [limitIncreased, setLimitIncreased] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true)
-      const response = await fetch(`https://ainfo-api.vercel.app/api/posts?limit=${limit}`)
+      const response = await fetch(`/api/posts?limit=${limit}`)
 
       if (!response.ok) {
         console.error("Error fetching posts")
@@ -32,11 +33,12 @@ const BlogTile = () => {
   }, [limit])
   const increaseLimit = () => {
     console.log("Limit increased")
-    setLimit(20) // Ustawia nowy limit na 20
+    setLimit(20) // U
+    setLimitIncreased(true) 
   }
 
   return (
-    <div className="flex flex-col w-4/5 mx-auto space-y-6">
+    <div className="flex flex-col mx-auto space-y-6 w-4/5 max-w-[1500px]" >
       <AnimatePresence>
         {isLoading ? (
           <motion.div
@@ -68,21 +70,21 @@ const BlogTile = () => {
                 <img
                   src={`/assets/${post.thumbnailName}`}
                   alt={post.title}
-                  className="rounded-lg w-full h-auto object-cover"
+                  className="rounded-lg w-full h-auto object-cover "
                 />
               </div>
 
               {/* Text Content */}
               <div className="h-full flex flex-col justify-between items-start px-4 lg:py-4">
                 {/* Title */}
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 text-left">{post.title}</h1>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 hover:text-blue-500 text-left">{post.title}</h1>
 
                 {/* Meta Info */}
                 <div className="mt-auto">
                   <div className="flex items-center text-sm text-gray-500 space-x-4">
                     <span className="flex items-center space-x-1">
                       <span className="font-medium">#</span>
-                      <span>
+                      <span className="hover:text-blue-300">
                         {post.categories && post.categories.length > 0
                           ? post.categories.map((category) => category.name).join(", ")
                           : "Brak kategorii"}
@@ -104,9 +106,11 @@ const BlogTile = () => {
         )}
       </AnimatePresence>
       <div className="flex justify-center mx-auto">
+      {!limitIncreased && ( // Conditionally render button
           <button onClick={increaseLimit} className="focus:outline-none">
-          <img src="/assets/plus.svg" alt="Zwiększ limit" className="w-20 my-8" />
-        </button>
+            <img src="/assets/plus.svg" alt="Zwiększ limit" className="w-20 my-8" />
+          </button>
+        )} 
       </div>
     </div>
   )

@@ -17,7 +17,7 @@ export default function PostSite() {
 			}
 
 			try {
-				const url = `https://ainfo-api.vercel.app/api/posts/full/${slug}`;
+				const url = `/api/posts/full/${slug}`;
 				const response = await fetch(url);
 				console.log(url);
 
@@ -92,7 +92,7 @@ export default function PostSite() {
 	return (
 		<article className="max-w-7xl mx-auto px-4 py-8">
 			{/* Author info and post title */}
-			<div className="mb-10 shadow-xl px-12 py-5">
+			<div className="mb-10 shadow-xl px-12 py-8">
 				<div className="flex items-center gap-4 mb-6">
 					<img
 						src={`/assets/${post.authorAvatar}`}
@@ -106,14 +106,16 @@ export default function PostSite() {
 							<span className="font-medium text-gray-900">{post.author}</span>
 							<span className="mx-2">•</span>
 							<span>Autor posta</span>
-						</div>
-						<div className="text-gray-600">
+							<span className="mx-2">•</span>
+							<span className="text-gray-600">
 							{new Date(post.creationDate).toLocaleDateString("pl-PL")}
+						</span>
 						</div>
+						
 					</div>
 				</div>
 				<h1 className="text-4xl font-bold mb-6">{post.title}</h1>
-				<p className="text-xl text-gray-600">{post.introduction.content}</p>
+				<p className="text-lg text-gray-600">{post.introduction.content}</p>
 			</div>
 
 			{/* Categories */}
@@ -129,10 +131,10 @@ export default function PostSite() {
 			</div>
 
 			{/* Table of Contents and Main Image */}
-			<div className="flex flex-row w-full">
-				<aside className="w-1/4 shrink-0">
+			<div className="flex flex-row w-full gap-4">
+				<aside className=" flex flex-col lg:align-top align-middle lg:w-1/4 w-2/5 shrink-0">
 					<h2 className="text-xl font-semibold mb-4">SPIS TREŚCI</h2>
-					<div className="space-y-2">
+					<div className="space-y-2 text-left">
 						{post.tableOfContents.flat().map((item) => (
 							<a
 								href={`#${item.anchor}`}
@@ -149,7 +151,7 @@ export default function PostSite() {
 					alt={post.title}
 					width={1200}
 					height={600}
-					className="w-3/4 rounded-lg mb-12"
+					className="lg:w-3/4 w-3/5 rounded-lg mb-12 mx-auto"
 				/>
 			</div>
 
@@ -165,7 +167,7 @@ export default function PostSite() {
 											<h2 className="text-2xl font-semibold mb-4">
 												{item.header}
 											</h2>
-											<p className="text-gray-700">{item.paragraph}</p>
+											<p className="text-lg text-gray-700">{item.paragraph}</p>
 										</div>
 									);
 								case "image":
@@ -198,7 +200,7 @@ export default function PostSite() {
 														<h2 className="text-2xl font-semibold mb-4">
 															{textItem.header}
 														</h2>
-														<p className="text-gray-700">
+														<p className="text-lg text-gray-700">
 															{textItem.paragraph}
 														</p>
 													</div>

@@ -16,7 +16,7 @@ const GridImages = () => {
 
       try {
         const response = await fetch(
-          "https://ainfo-api.vercel.app/api/posts/featured"
+          "/api/posts/featured"
         );
 
         if (!response.ok) {
@@ -71,11 +71,11 @@ const GridImages = () => {
               >
                 <div className="absolute inset-0 bg-black bg-opacity-50"></div>
                 <div className="absolute bottom-2 left-2 text-white p-7">
-                  <h3 className="font-bold text-3xl md:text-5xl pb-8 md:pb-16">
+                  <h3 className="font-bold text-3xl md:text-5xl pb-8 md:pb-16 hover:text-blue-300">
                     {posts[0].title}
                   </h3>
                   <div className="text-base md:text-lg mt-2">
-                    <span>#{posts[0].categories.map((cat) => cat.name).join(", ")}</span>
+                    <span className="hover:text-blue-200">#{posts[0].categories.map((cat) => cat.name).join(", ")}</span>
                     <span className="ml-4">
                       {new Date(posts[0].creationDate).toLocaleDateString()}
                     </span>
@@ -95,9 +95,9 @@ const GridImages = () => {
               >
                 <div className="absolute inset-0 bg-black bg-opacity-50"></div>
                 <div className="absolute bottom-6 left-6 text-white">
-                  <h3 className="font-bold text-lg">{post.title}</h3>
+                  <h3 className="font-bold text-lg hover:text-blue-300">{post.title}</h3>
                   <div className="text-sm mt-2">
-                    <span>#{post.categories.map((cat) => cat.name).join(", ")}</span>
+                    <span className="hover:text-blue-200">#{post.categories.map((cat) => cat.name).join(", ")}</span>
                     <span className="ml-4">
                       {new Date(post.creationDate).toLocaleDateString()}
                     </span>

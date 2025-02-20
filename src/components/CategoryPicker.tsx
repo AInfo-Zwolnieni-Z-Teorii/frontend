@@ -8,7 +8,7 @@ const CategoryPicker = ({ onUpdate, initialCategories = [] }) => {
     setSelectedTypes(initialCategories)
   }, [initialCategories])
 
-  const blogTypes = ["GPT", "AGD", "komputery", "życie bez AI", "chat GPT+", "AI", "AI iQ", "AI gry"]
+  const blogTypes = ["GPT", "AGD", "poradniki", "życie bez AI", "chat GPT+", "AI", "AI iQ", "AI gry"]
 
   const toggleSelection = (type) => {
     const updatedTypes = selectedTypes.includes(type)
