@@ -66,7 +66,7 @@ const GridImages = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="relative bg-cover bg-center shadow overflow-hidden h-[calc(100vh-200px)] max-w-[1000px] md:h-full w-full cursor-pointer"
-                style={{ backgroundImage: `url(/assets/${posts[0].thumbnailName})` }}
+                style={{ backgroundImage: `url(${posts[0].thumbnailName})` }}
                 onClick={() => navigate(`/post/${posts[0].slug}`)}
               >
                 <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -90,7 +90,7 @@ const GridImages = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="relative bg-cover bg-center shadow overflow-hidden h-64 md:h-full w-full hidden md:block max-w-[500px] cursor-pointer"
-                style={{ backgroundImage: `url(/assets/${post.thumbnailName})` }}
+                style={{ backgroundImage: `url(${post.thumbnailName})` }}
                 onClick={() => navigate(`/post/${post.slug}`)}
               >
                 <div className="absolute inset-0 bg-black bg-opacity-50"></div>
