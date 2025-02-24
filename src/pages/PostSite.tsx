@@ -3,6 +3,7 @@ import type { DetailedPost } from "../interfaces/postSite";
 import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
+import { API_BASE_URL } from "../config";
 
 export default function PostSite() {
 	const [post, setPost] = useState<DetailedPost | null>(null);
@@ -17,7 +18,7 @@ export default function PostSite() {
 			}
 
 			try {
-				const url = `/api/posts/full/${slug}`;
+				const url = `${API_BASE_URL}/posts/full/${slug}`;
 				const response = await fetch(url);
 				console.log(url);
 
@@ -95,7 +96,7 @@ export default function PostSite() {
 			<div className="mb-10 shadow-xl px-12 py-8">
 				<div className="flex items-center gap-4 mb-6">
 					<img
-						src={`/assets/${post.authorAvatar}`}
+						src={post.authorAvatar}
 						alt={post.author}
 						width={37}
 						height={37}
@@ -108,10 +109,9 @@ export default function PostSite() {
 							<span>Autor posta</span>
 							<span className="mx-2">•</span>
 							<span className="text-gray-600">
-							{new Date(post.creationDate).toLocaleDateString("pl-PL")}
-						</span>
+								{new Date(post.creationDate).toLocaleDateString("pl-PL")}
+							</span>
 						</div>
-						
 					</div>
 				</div>
 				<h1 className="text-4xl font-bold mb-6">{post.title}</h1>
@@ -147,7 +147,7 @@ export default function PostSite() {
 					</div>
 				</aside>
 				<img
-					src={`/assets/${post.thumbnailName}`}
+					src={post.thumbnailName}
 					alt={post.title}
 					width={1200}
 					height={600}
@@ -174,7 +174,7 @@ export default function PostSite() {
 									return (
 										<img
 											key={index}
-											src={`/assets/${item.src}`}
+											src={item.src}
 											alt={item.alt}
 											width={600}
 											height={400}
@@ -188,7 +188,7 @@ export default function PostSite() {
 											className={`flex gap-8 ${item.layout === "right" ? "flex-row-reverse" : ""}`}
 										>
 											<img
-												src={`/assets/${item.image?.src}`}
+												src={item.image?.src}
 												alt={item.image?.alt}
 												width={600}
 												height={400}

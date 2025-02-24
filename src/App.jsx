@@ -20,60 +20,65 @@ import ONas from "./pages/oNas";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CookieConsent from "./components/CookiesConsent";
 
-
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  return (
-    <ErrorBoundary>
-    <Router>
-      
-      <div className="flex align-middle justify-center flex-col w-full h-full">
-        
-        <Navigation />
-       
-        <Routes>
-          {/* Home Page */}
-          <Route
-            path="/"
-            element={
-              <>
-                <GridImages />
-                <BlogTile />
-              </>
-            }
-          />
-          {/* Blog Creation Page */}
-          <Route
-          path="/blog-create"
-          element={isAuthenticated ? <BlogCreation /> : <Navigate to="/log-in-add-site" />}
-          />
-          {/* Blog Review Page */}
-          <Route path="/blog-review" element={<BlogReview />} />
-          <Route path="/o-nas" element={<ONas />} />
-          {/* search */}
-          <Route path="/search" element={<Search />} />
-          {/* contact */}
-          <Route path="/contact" element={<Contact />} />
-          {/* Log In */}
-          <Route path="/log-in" element={<Login />} />
-          {/* Log In 2 */}
-          <Route path="/log-in-add-site" element={<LoginAddSite setAuth={setIsAuthenticated} />} />
-          {/* Sign In */}
-          <Route path="/sign-in" element={<SignIn />} />
-          {/*Pricacy Policy */}
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          {/* Post */}
-          <Route path="/post/:slug" element={<PostSite />} />
-          {/* Inne trasy */}
-          <Route path="*" element={<Error404 />} /> {/* Obsługa 404 */}
-        </Routes>
-        <CookieConsent/>
-        <Footer />
-      </div>
-    </Router>
-    </ErrorBoundary>
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	return (
+		<ErrorBoundary>
+			<Router>
+				<div className="flex align-middle justify-center flex-col w-full h-full">
+					<Navigation />
 
-  );
+					<Routes>
+						{/* Home Page */}
+						<Route
+							path="/"
+							element={
+								<>
+									<GridImages />
+									<BlogTile />
+								</>
+							}
+						/>
+						{/* Blog Creation Page */}
+						<Route
+							path="/blog-create"
+							element={
+								isAuthenticated ? (
+									<BlogCreation />
+								) : (
+									<Navigate to="/log-in-add-site" />
+								)
+							}
+						/>
+						{/* Blog Review Page */}
+						<Route path="/blog-review" element={<BlogReview />} />
+						<Route path="/o-nas" element={<ONas />} />
+						{/* search */}
+						<Route path="/search" element={<Search />} />
+						{/* contact */}
+						<Route path="/contact" element={<Contact />} />
+						{/* Log In */}
+						<Route path="/log-in" element={<Login />} />
+						{/* Log In 2 */}
+						<Route
+							path="/log-in-add-site"
+							element={<LoginAddSite setAuth={setIsAuthenticated} />}
+						/>
+						{/* Sign In */}
+						<Route path="/sign-in" element={<SignIn />} />
+						{/*Pricacy Policy */}
+						<Route path="/privacy-policy" element={<PrivacyPolicy />} />
+						{/* Post */}
+						<Route path="/post/:slug" element={<PostSite />} />
+						{/* Inne trasy */}
+						<Route path="*" element={<Error404 />} /> {/* Obsługa 404 */}
+					</Routes>
+					<CookieConsent />
+					<Footer />
+				</div>
+			</Router>
+		</ErrorBoundary>
+	);
 };
 
 export default App;
