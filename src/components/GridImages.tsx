@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { IPost } from "../interfaces/featuredPost";
+import { API_BASE_URL } from "../config";
 
 const GridImages = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -16,7 +17,7 @@ const GridImages = () => {
 
       try {
         const response = await fetch(
-          "/api/posts/featured"
+          `${API_BASE_URL}/posts/featured`
         );
 
         if (!response.ok) {

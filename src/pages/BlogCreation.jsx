@@ -4,8 +4,10 @@ import ImagePicker from "../components/ImagePicker"
 import CategoryPicker from "../components/CategoryPicker"
 import BlogForm from "../components/BlogDescriptionCreator"
 import BlogName from "../components/BlogName"
+import { API_BASE_URL } from "../config"
 
 const BlogCreation = () => {
+  let isServer = false;
   const location = useLocation()
   const initialData = location.state?.blogData || {
     image: null,
@@ -42,7 +44,7 @@ const BlogCreation = () => {
 
     try {
       // Step 1: Refresh the session
-      const refreshResponse = await fetch("/api/auth/refresh", {
+      const refreshResponse = await fetch(`${API_BASE_URL}/auth/refresh`, {
         method: "POST",
         credentials: "include", // Include cookies for authentication
       })

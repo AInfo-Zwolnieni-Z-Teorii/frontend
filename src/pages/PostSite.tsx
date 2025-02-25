@@ -3,6 +3,7 @@ import type { DetailedPost } from "../interfaces/postSite";
 import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
+import { API_BASE_URL } from "../config";
 
 export default function PostSite() {
 	const [post, setPost] = useState<DetailedPost | null>(null);
@@ -17,7 +18,7 @@ export default function PostSite() {
 			}
 
 			try {
-				const url = `/api/posts/full/${slug}`;
+				const url = `${API_BASE_URL}/posts/full/${slug}`;
 				const response = await fetch(url);
 				console.log(url);
 

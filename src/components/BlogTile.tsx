@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import type { IPost, IValidationError } from "../interfaces/postList";
 import React from "react";
+import { API_BASE_URL } from "../config";
 
 const BlogTile = () => {
 	const [limit, setLimit] = useState(7);
@@ -14,7 +15,7 @@ const BlogTile = () => {
 	useEffect(() => {
 		const fetchPosts = async () => {
 			setIsLoading(true);
-			const response = await fetch(`/api/posts?limit=${limit}`);
+			const response = await fetch(`${API_BASE_URL}/posts?limit=${limit}`);
 
 			if (!response.ok) {
 				console.error("Error fetching posts");

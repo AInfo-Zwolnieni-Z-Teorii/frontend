@@ -1,16 +1,36 @@
-import React from "react"
-import { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
+import { API_BASE_URL } from "../config"
 
 const CategoryPicker = ({ onUpdate, initialCategories = [] }) => {
   const [selectedTypes, setSelectedTypes] = useState<string[]>(initialCategories)
+  const [categories, setCategories] = useState<{ name: string; slug: string }[]>([])
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    setSelectedTypes(initialCategories)
-  }, [initialCategories])
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/categories`, {
+          method: "GET",
+          credentials: "include",
+        })
 
-  const blogTypes = ["GPT", "AGD", "poradniki", "życie bez AI", "chat GPT+", "AI", "AI iQ", "AI gry"]
+        if (!response.ok) {
+          const errorData = await response.json()
+          setError(errorData.error || "Wystąpił błąd podczas pobierania kategorii.")
+          return
+        }
 
-  const toggleSelection = (type) => {
+        const data = await response.json()
+        setCategories(data)
+      } catch (error) {
+        setError("Wystąpił błąd podczas pobierania kategorii.")
+      }
+    }
+
+    fetchCategories()
+  }, [])
+
+  const toggleSelection = (type: string) => {
     const updatedTypes = selectedTypes.includes(type)
       ? selectedTypes.filter((t) => t !== type)
       : [...selectedTypes, type]
@@ -20,17 +40,18 @@ const CategoryPicker = ({ onUpdate, initialCategories = [] }) => {
 
   return (
     <div className="flex flex-col items-center w-full justify-center h-3/4 py-10">
-      <h1 className="text-4xl font-bold text-blue-600 mb-6 ">3. WYBIERZ KATEGORIE BLOGA</h1>
+      <h1 className="text-4xl font-bold text-blue-600 mb-6">Wybierz Kategorię</h1>
+      {error && <p className="text-red-500">{error}</p>}
       <div className="grid grid-cols-4 gap-4">
-        {blogTypes.map((type) => (
+        {categories.map((category) => (
           <button
-            key={type}
+            key={category.slug}
             className={`px-9 py-5 rounded-md font-medium text-lg shadow-lg ${
-              selectedTypes.includes(type) ? "bg-blue-600 text-white" : "bg-white text-gray-800 hover:bg-gray-100"
+              selectedTypes.includes(category.slug) ? "bg-blue-600 text-white" : "bg-white text-gray-800 hover:bg-gray-100"
             }`}
-            onClick={() => toggleSelection(type)}
+            onClick={() => toggleSelection(category.slug)}
           >
-            {type}
+            {category.name}
           </button>
         ))}
       </div>
