@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FormInput from './FormInput';
 import Alert from './Alert';
+import { API_BASE_URL } from '../config';
 
 interface AuthFormProps {
   onSubmit: (data: { email: string; password: string }) => void;
@@ -18,13 +19,6 @@ interface FormStatus {
   type: 'error' | 'success' | null;
   message: string | null;
 }
-
-// Temporary hardcoded credentials for testing
-// REMOVE THIS IN PRODUCTION!
-const TEST_CREDENTIALS = {
-  email: 'admin@gmail.com',
-  password: 'haslo'
-};
 
 const AuthForm: React.FC<AuthFormProps> = ({ 
   onSubmit, 
@@ -74,35 +68,24 @@ const AuthForm: React.FC<AuthFormProps> = ({
   };
 
   const authenticateUser = async (credentials: { email: string; password: string }) => {
-    // OPTION 1: Using hardcoded credentials (for testing only)
-    if (
-      credentials.email === TEST_CREDENTIALS.email && 
-      credentials.password === TEST_CREDENTIALS.password
-    ) {
-      return { success: true };
-    }
-    
-    // OPTION 2: Using API/Database (uncomment and modify when ready)
-    /*
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(credentials),
       });
 
       const data = await response.json();
       
       if (!response.ok) {
-        throw new Error(data.message || 'Błąd logowania');
+        throw new Error(data.errors?.[0]?.msg || 'Błąd logowania');
       }
 
       return { 
-        success: true,
-        token: data.token,
-        userData: data.user
+        success: true
       };
     } catch (error) {
       console.error('Authentication error:', error);
@@ -111,12 +94,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
         error: error instanceof Error ? error.message : 'Błąd logowania'
       };
     }
-    */
-
-    return { 
-      success: false, 
-      error: 'Nieprawidłowy email lub hasło'
-    };
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -139,19 +116,11 @@ const AuthForm: React.FC<AuthFormProps> = ({
           message: 'Zalogowano pomyślnie!'
         });
         
-        // You might want to store the token in localStorage
-        // localStorage.setItem('authToken', authResult.token);
-        
         // Call the onSubmit prop with the form data
         onSubmit(formData);
         
-        // Optional: Clear form after successful login
+        // Clear form after successful login
         setFormData({ email: '', password: '' });
-        
-        // Optionally redirect after a short delay
-        // setTimeout(() => {
-        //   window.location.href = '/dashboard';
-        // }, 1500);
       } else {
         setFormStatus({
           type: 'error',
@@ -180,9 +149,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <FormInput
           type="text"
           name="email"
-          placeholder="Login"
           value={formData.email}
           onChange={handleChange}
+          placeholder="Email"
           error={errors.email}
         />
         {errors.email && (
@@ -194,9 +163,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <FormInput
           type="password"
           name="password"
-          placeholder="Hasło"
           value={formData.password}
           onChange={handleChange}
+          placeholder="Hasło"
           error={errors.password}
         />
         {errors.password && (

@@ -31,24 +31,27 @@ const Navigation = () => {
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center justify-center flex-1 gap-6 sm:gap-5 md:gap-12 lg:gap-16 xl:gap-24" aria-label="Main Navigation">
+        <nav 
+          className="hidden lg:flex items-center justify-end flex-1 gap-6 sm:gap-5 md:gap-12 lg:gap-16 xl:gap-24" 
+          aria-label="Main Navigation"
+        >
           <a
             href="/"
-            className="text-black font-light hover:text-blue-500 xl:text-3xl md:text-xl text-lg flex-initial"
+            className="text-black font-light hover:text-blue-500 xl:text-3xl md:text-xl text-lg"
             aria-label="Navigate to Home"
           >
             Home
           </a>
           <a
             href="/o-nas"
-            className="text-black font-light hover:text-blue-500 xl:text-3xl md:text-xl text-lg flex-initial"
+            className="text-black font-light hover:text-blue-500 xl:text-3xl md:text-xl text-lg"
             aria-label="Navigate to About Us"
           >
             O&nbsp;nas
           </a>
           <a
             href="/contact"
-            className="text-black font-light hover:text-blue-500 xl:text-3xl md:text-xl text-lg flex-initial"
+            className="text-black font-light hover:text-blue-500 xl:text-3xl md:text-xl text-lg"
             aria-label="Navigate to Contact"
           >
             Kontakt

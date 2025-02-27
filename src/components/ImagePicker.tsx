@@ -28,13 +28,20 @@ const ImagePicker = ({ onUpdate, initialImage = null }) => {
     onUpdate(null)
   }
 
-  const handlePredefinedImageSelect = (imageSrc: string) => {
-    const imageData = {
-      file: null,
-      preview: imageSrc,
+  const handlePredefinedImageSelect = async (imageSrc: string) => {
+    try {
+      const response = await fetch(imageSrc);
+      const blob = await response.blob();
+      const file = new File([blob], 'image.png', { type: 'image/png' });
+      const imageData = {
+        file,
+        preview: imageSrc,
+      }
+      setSelectedImage(imageData)
+      onUpdate(imageData)
+    } catch (error) {
+      console.error('Error converting image to file:', error);
     }
-    setSelectedImage(imageData)
-    onUpdate(imageData)
   }
 
   return (
@@ -103,4 +110,3 @@ const ImagePicker = ({ onUpdate, initialImage = null }) => {
 }
 
 export default ImagePicker
-

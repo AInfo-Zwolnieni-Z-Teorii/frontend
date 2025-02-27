@@ -91,118 +91,116 @@ export default function PostSite() {
 		);
 
 	return (
-		<article className="max-w-7xl mx-auto px-4 py-8">
-			{/* Author info and post title */}
-			<div className="mb-10 shadow-xl px-12 py-8">
-				<div className="flex items-center gap-4 mb-6">
-					<img
-						src={post.authorAvatar}
-						alt={post.author}
-						width={37}
-						height={37}
-						className="rounded-full aspect-square"
-					/>
-					<div className="flex items-center gap-8">
-						<div className="text-gray-600">
-							<span className="font-medium text-gray-900">{post.author}</span>
-							<span className="mx-2">•</span>
-							<span>Autor posta</span>
-							<span className="mx-2">•</span>
-							<span className="text-gray-600">
-								{new Date(post.creationDate).toLocaleDateString("pl-PL")}
-							</span>
+		<div className="w-full bg-gray-50">
+			<article className="w-[90%] max-w-7xl mx-auto px-4 py-8">
+				{/* Author info and post title */}
+				<div className="mb-10 shadow-xl px-12 py-8 bg-white rounded-lg">
+					<div className="flex items-center gap-4 mb-6">
+						<img
+							src={post.authorAvatar}
+							alt={post.author}
+							width={37}
+							height={37}
+							className="rounded-full aspect-square"
+						/>
+						<div className="flex items-center gap-8">
+							<div className="text-gray-600">
+								<span className="font-medium text-gray-900">{post.author}</span>
+								<span className="mx-2">•</span>
+								<span>Autor posta</span>
+								<span className="mx-2">•</span>
+								<span className="text-gray-600">
+									{new Date(post.creationDate).toLocaleDateString("pl-PL")}
+								</span>
+							</div>
 						</div>
 					</div>
+					<h1 className="text-4xl font-bold mb-6">{post.title}</h1>
+					<p className="text-lg text-gray-600">{post.introduction.content}</p>
 				</div>
-				<h1 className="text-4xl font-bold mb-6">{post.title}</h1>
-				<p className="text-lg text-gray-600">{post.introduction.content}</p>
-			</div>
 
-			{/* Categories */}
-			<div className="flex gap-4 my-8">
-				{post.categories.map((category) => (
-					<button
-						key={category.slug}
-						className="px-6 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors"
-					>
-						{category.name}
-					</button>
-				))}
-			</div>
+				{/* Categories */}
+				<div className="flex gap-4 my-8">
+					{post.categories.map((category) => (
+						<button
+							key={category.slug}
+							className="px-6 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors"
+						>
+							{category.name}
+						</button>
+					))}
+				</div>
 
-			{/* Table of Contents and Main Image */}
-			<div className="flex flex-row w-full gap-4">
-				<aside className=" flex flex-col lg:align-top align-middle lg:w-1/4 w-2/5 shrink-0">
-					<h2 className="text-xl font-semibold mb-4">SPIS TREŚCI</h2>
-					<div className="space-y-2 text-left">
-						{post.tableOfContents.flat().map((item) => (
-							<a
-								href={`#${item.anchor}`}
-								key={item.anchor}
-								className="block text-gray-700 hover:text-indigo-600"
-							>
-								{item.header}
-							</a>
-						))}
+				{/* Table of Contents and Main Image - Side by side */}
+				<div className="flex flex-col lg:flex-row w-full gap-8 mb-12">
+					<aside className="lg:w-1/4 w-full">
+						<div className="sticky top-4 bg-white rounded-lg p-6 shadow-md">
+							<h2 className="text-xl font-semibold mb-4">SPIS TREŚCI</h2>
+							<div className="space-y-2">
+								{post.tableOfContents.flat().map((item) => (
+									<a
+										href={`#${item.anchor}`}
+										key={item.anchor}
+										className="block text-gray-700 hover:text-indigo-600"
+									>
+										{item.header}
+									</a>
+								))}
+							</div>
+						</div>
+					</aside>
+					
+					<div className="lg:w-3/4 w-full">
+						<img
+							src={post.thumbnailName}
+							alt={post.title}
+							className="w-full rounded-lg shadow-md object-cover aspect-video"
+						/>
 					</div>
-				</aside>
-				<img
-					src={post.thumbnailName}
-					alt={post.title}
-					width={1200}
-					height={600}
-					className="lg:w-3/4 w-3/5 rounded-lg mb-12 mx-auto"
-				/>
-			</div>
+				</div>
 
-			<div className="flex gap-12">
-				{/* Main Content */}
-				<div className="flex-1">
-					<section className="space-y-12">
+				{/* Main Content - Full width with max-width for better readability */}
+				<div className="w-full">
+					<section className="space-y-12 max-w-4xl mx-auto">
 						{post.content.flat().map((item, index) => {
 							switch (item.type) {
 								case "text":
 									return (
-										<div key={index} id={item.anchor}>
-											<h2 className="text-2xl font-semibold mb-4">
-												{item.header}
-											</h2>
-											<p className="text-lg text-gray-700">{item.paragraph}</p>
+										<div key={index} id={item.anchor} className="bg-white rounded-lg p-8 shadow-md">
+											<h2 className="text-2xl font-semibold mb-4">{item.header}</h2>
+											<p className="text-lg text-gray-700 leading-relaxed">{item.paragraph}</p>
 										</div>
 									);
 								case "image":
 									return (
-										<img
-											key={index}
-											src={item.src}
-											alt={item.alt}
-											width={600}
-											height={400}
-											className="w-full rounded-lg"
-										/>
+										<div key={index} className="w-full">
+											<img
+												src={item.src}
+												alt={item.alt}
+												className="w-full rounded-lg shadow-md object-cover aspect-video"
+											/>
+										</div>
 									);
 								case "image-text":
 									return (
 										<div
 											key={index}
-											className={`flex gap-8 ${item.layout === "right" ? "flex-row-reverse" : ""}`}
+											className={`flex flex-col lg:flex-row gap-8 w-full bg-white rounded-lg p-8 shadow-md ${
+												item.layout === "right" ? "lg:flex-row-reverse" : ""
+											}`}
 										>
-											<img
-												src={item.image?.src}
-												alt={item.image?.alt}
-												width={600}
-												height={400}
-												className="w-1/2 rounded-lg"
-											/>
-											<div className="w-1/2">
+											<div className="lg:w-1/2 w-full">
+												<img
+													src={item.image?.src}
+													alt={item.image?.alt}
+													className="w-full rounded-lg shadow-sm object-cover aspect-[4/3]"
+												/>
+											</div>
+											<div className="lg:w-1/2 w-full">
 												{item.text?.map((textItem, textIndex) => (
-													<div key={textIndex} id={textItem.anchor}>
-														<h2 className="text-2xl font-semibold mb-4">
-															{textItem.header}
-														</h2>
-														<p className="text-lg text-gray-700">
-															{textItem.paragraph}
-														</p>
+													<div key={textIndex} id={textItem.anchor} className="space-y-4">
+														<h2 className="text-2xl font-semibold">{textItem.header}</h2>
+														<p className="text-lg text-gray-700 leading-relaxed">{textItem.paragraph}</p>
 													</div>
 												))}
 											</div>
@@ -212,7 +210,7 @@ export default function PostSite() {
 						})}
 					</section>
 				</div>
-			</div>
-		</article>
+			</article>
+		</div>
 	);
 }

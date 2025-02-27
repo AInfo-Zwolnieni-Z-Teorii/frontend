@@ -73,11 +73,11 @@ export default function BlogDescriptionCreator({ onSubmit }: BlogFormProps) {
       const imageUrl = URL.createObjectURL(file);
 
       if (block.image) {
-        block.image.src = imageUrl;
+        block.image.src = file;
       }
 
       setBlocks(newBlocks);
-      setSelectedImages({ ...selectedImages, [blockIndex]: imageUrl });
+      setSelectedImages({ ...selectedImages, [blockIndex]: file });
     }
   };
 
