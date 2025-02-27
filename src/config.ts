@@ -1,4 +1,4 @@
-export const isServer = false;
+export const isServer = true;
 export const API_BASE_URL = isServer
-  ? "https://ainfo-api.vercel.app/api"
-  : "/api";
+	? "https://ainfo-api.vercel.app/api"
+	: "/api";
