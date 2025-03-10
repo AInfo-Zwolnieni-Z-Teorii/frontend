@@ -52,19 +52,41 @@ const ContactForm: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      await fetch('/api/send-email', {
+      const response = await fetch('https://ainfo-api.vercel.app/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          to: 'ainfoproject2024@gmail.com',
-          subject: 'Nowa wiadomość z formularza kontaktowego',
-          text: `Email: ${formData.email}\n\nWiadomość: ${formData.message}`,
-          replyTo: formData.email
+          email: formData.email,
+          content: formData.message
         }),
       });
       
-      setSubmitSuccess(true);
-      setFormData({ email: '', message: '' });
+      const data = await response.json();
+      
+      if (!response.ok) {
+        if (data.errors) {
+          // Handle validation errors from the API
+          const newErrors: { email?: string; message?: string } = {};
+          
+          data.errors.forEach((err: any) => {
+            if (err.path === 'email') {
+              newErrors.email = err.msg;
+            } else if (err.path === 'content') {
+              newErrors.message = err.msg;
+            }
+          });
+          
+          setError(newErrors);
+        } else {
+          // General error
+          setError({
+            message: data.message || 'Nie udało się wysłać wiadomości. Spróbuj ponownie później.'
+          });
+        }
+      } else {
+        setSubmitSuccess(true);
+        setFormData({ email: '', message: '' });
+      }
     } catch (error) {
       console.error('Błąd podczas wysyłania wiadomości:', error);
       setError({
