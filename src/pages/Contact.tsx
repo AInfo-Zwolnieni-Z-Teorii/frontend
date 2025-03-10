@@ -76,66 +76,82 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <h1 className="text-4xl font-bold text-navy-900 mb-12">
-        SKONTAKTUJ SIĘ
-      </h1>
-      
-      {submitSuccess ? (
-        <div className="w-full max-w-md text-center">
-          <div className="bg-green-100 text-green-700 p-4 rounded-lg mb-6">
-            Wiadomość została wysłana pomyślnie!
-          </div>
-          <button
-            className="py-2 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-            onClick={() => setSubmitSuccess(false)}
-          >
-            Wyślij kolejną wiadomość
-          </button>
+    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-xl shadow-md">
+        <div className="text-center">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+            SKONTAKTUJ SIĘ
+          </h1>
+          <p className="mt-2 text-sm text-gray-600">
+            Wypełnij formularz, a odpowiemy najszybciej jak to możliwe
+          </p>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
-          <div className="space-y-2">
-            <input
-              type="email"
-              name="email"
-              className={`w-full p-4 border rounded-lg focus:outline-none focus:ring-2 ${
-                error.email ? 'border-red-500 focus:ring-red-200' : 'focus:ring-indigo-600'
-              }`}
-              placeholder="Twój adres email..."
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {error.email && (
-              <p className="text-sm text-red-500">{error.email}</p>
-            )}
+        
+        {submitSuccess ? (
+          <div className="text-center">
+            <div className="bg-green-100 text-green-700 p-4 rounded-lg mb-6">
+              Wiadomość została wysłana pomyślnie!
+            </div>
+            <button
+              className="py-2 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+              onClick={() => setSubmitSuccess(false)}
+            >
+              Wyślij kolejną wiadomość
+            </button>
           </div>
-          
-          <div className="space-y-2">
-            <textarea
-              name="message"
-              className={`w-full p-4 border rounded-lg focus:outline-none focus:ring-2 ${
-                error.message ? 'border-red-500 focus:ring-red-200' : 'focus:ring-indigo-600'
-              }`}
-              rows={5}
-              placeholder="Wpisz swoją wiadomość..."
-              value={formData.message}
-              onChange={handleChange}
-            />
-            {error.message && (
-              <p className="text-sm text-red-500">{error.message}</p>
-            )}
-          </div>
-          
-          <button
-            type="submit"
-            className="w-full py-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium disabled:opacity-70"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Wysyłanie...' : 'Wyślij'}
-          </button>
-        </form>
-      )}
+        ) : (
+          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+            <div className="space-y-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                className={`w-full p-4 border rounded-lg focus:outline-none focus:ring-2 ${
+                  error.email ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-indigo-600'
+                }`}
+                placeholder="Twój adres email..."
+                value={formData.email}
+                onChange={handleChange}
+              />
+              {error.email && (
+                <p className="text-sm text-red-500">{error.email}</p>
+              )}
+            </div>
+            
+            <div className="space-y-2">
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                Wiadomość
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                className={`w-full p-4 border rounded-lg focus:outline-none focus:ring-2 ${
+                  error.message ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-indigo-600'
+                }`}
+                rows={5}
+                placeholder="Wpisz swoją wiadomość..."
+                value={formData.message}
+                onChange={handleChange}
+              />
+              {error.message && (
+                <p className="text-sm text-red-500">{error.message}</p>
+              )}
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="w-full py-3 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+              >
+                Wyślij wiadomość
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
     </div>
   );
 };

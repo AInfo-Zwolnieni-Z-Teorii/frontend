@@ -24,7 +24,12 @@ export default {
       colors: {
         footer_bg: "#abdcff",
         main_dark_blue: "#172deb"
-      }
+      },
+      screens: {
+        '2xl': '1536px',
+        '3xl': '2000px',
+        '4xl': '3000px',
+      },
     },
   },
   plugins: [],

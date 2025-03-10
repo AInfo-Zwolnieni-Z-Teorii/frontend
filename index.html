@@ -62,5 +62,22 @@
 
 		<div id="root"></div>
 		<script type="module" src="/src/main.jsx"></script>
+
+		<!-- This should be added to your body or main container -->
+		<style>
+			#root {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+			
+			main {
+				flex: 1 0 auto;
+			}
+			
+			footer {
+				flex-shrink: 0;
+			}
+		</style>
 	</body>
 </html>

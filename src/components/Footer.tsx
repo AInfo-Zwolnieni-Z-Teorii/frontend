@@ -6,29 +6,48 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-footer_bg flex justify-center align-center h-auto w-full" >
-      <div className="w-1/2 md:w-full flex flex-col gap-4 md:gap-0 justify-center items-center md:flex-row py-20">
-        <div className="flex align-middle justify-center gap-8 w-1/2">
-          <a href="#instagram" aria-label="Instagram" className="text-pink-600 text-2xl">
-            <FaInstagram style={{fontSize:"5rem"}} />
+    <footer className="bg-footer_bg w-full mt-auto">
+      <div className="w-full max-w-7xl flex flex-col md:flex-row justify-center items-center py-10 md:py-12 lg:py-16 xl:py-20 mx-auto">
+        {/* Icons container - exactly half width on non-mobile */}
+        <div className="w-full md:w-1/2 flex justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10">
+          <a 
+            href="#instagram" 
+            aria-label="Instagram" 
+            className="text-pink-600"
+          >
+            <FaInstagram className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 3xl:w-28 3xl:h-28 4xl:w-32 4xl:h-32" />
           </a>
-          <a href="#facebook" aria-label="Facebook" className="text-blue-600 text-2xl">
-            <FaFacebook style={{fontSize:"5rem"}} />
+          <a 
+            href="#facebook" 
+            aria-label="Facebook" 
+            className="text-blue-600"
+          >
+            <FaFacebook className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 3xl:w-28 3xl:h-28 4xl:w-32 4xl:h-32" />
           </a>
-          <a href="#tiktok" aria-label="TikTok" className="text-black text-2xl">
-            <FaTiktok style={{fontSize:"5rem"}}/>
+          <a 
+            href="#tiktok" 
+            aria-label="TikTok" 
+            className="text-black"
+          >
+            <FaTiktok className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 3xl:w-28 3xl:h-28 4xl:w-32 4xl:h-32" />
           </a>
         </div>
-        <div className="flex flex-col gap-4 md:gap-0 justify-center items-center">
-          <p className="font-medium text-2xl sm:text-3xl md:font-text-3.5xl lg:text-4xl xl:text-5xl">ainfoproject2024@gmail.com</p>
-          <p className="font-medium text-xl sm:text-2xl md:font-text-2.5xl lg:text-3xl xl:text-4xl text-gray-800">
-            <Link to={"/privacy-policy"} className="text-gray-500 hover:text-gray-600">
+
+        {/* Text container - exactly half width on non-mobile */}
+        <div className="w-full md:w-1/2 flex flex-col gap-3 md:gap-4 lg:gap-5 justify-center items-center mt-4 md:mt-0">
+          <p className="font-medium text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl 4xl:text-6xl">
+            ainfoproject2024@gmail.com
+          </p>
+          <p className="font-medium">
+            <Link 
+              to={"/privacy-policy"} 
+              className="text-gray-500 hover:text-gray-600 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl"
+            >
               Polityka Prywatności
             </Link>
           </p>
         </div>
       </div>
-      
     </footer>
   );
 };

@@ -8,8 +8,8 @@ import { API_BASE_URL } from "../config";
 const BlogTile = () => {
 	const [limit, setLimit] = useState(7);
 	const [posts, setPosts] = useState<IPost[] | IValidationError>([]);
+	const [totalPosts, setTotalPosts] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
-	const [limitIncreased, setLimitIncreased] = useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -27,15 +27,35 @@ const BlogTile = () => {
 			console.log(data);
 
 			setPosts(data);
+			
+			// Get total count if available in headers or response metadata
+			// This is an example - adjust based on your API
+			if (Array.isArray(data)) {
+				const totalCountHeader = response.headers.get('X-Total-Count');
+				if (totalCountHeader) {
+					setTotalPosts(parseInt(totalCountHeader));
+				} else {
+					// If no header, estimate based on whether we got fewer posts than requested
+					setTotalPosts(data.length < limit ? data.length : data.length + 5);
+				}
+			}
+			
 			setIsLoading(false);
 		};
 
 		fetchPosts();
 	}, [limit]);
+	
 	const increaseLimit = () => {
-		console.log("Limit increased");
-		setLimit(20); // U
-		setLimitIncreased(true);
+		console.log("Increasing limit by 5");
+		setLimit(prevLimit => prevLimit + 5);
+	};
+
+	// Determine if we should show the "load more" button
+	const showLoadMoreButton = () => {
+		if (!Array.isArray(posts)) return false;
+		// If we have fewer posts than the current limit, we've loaded all posts
+		return posts.length >= limit;
 	};
 
 	return (
@@ -125,11 +145,14 @@ const BlogTile = () => {
 				)}
 			</AnimatePresence>
 			<div className="flex justify-center mx-auto">
-				{!limitIncreased && ( // Conditionally render button
-					<button onClick={increaseLimit} className="focus:outline-none">
+				{showLoadMoreButton() && (
+					<button 
+						onClick={increaseLimit} 
+						className="focus:outline-none hover:opacity-80 transition-opacity"
+					>
 						<img
 							src="/assets/plus.svg"
-							alt="Zwiększ limit"
+							alt="Załaduj więcej"
 							className="w-20 my-8"
 						/>
 					</button>
