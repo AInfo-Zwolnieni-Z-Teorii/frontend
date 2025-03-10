@@ -5,11 +5,53 @@ import { useState, useRef, useEffect } from "react"
 
 const ImagePicker = ({ onUpdate, initialImage = null }) => {
   const [selectedImage, setSelectedImage] = useState<{ file: File | null; preview: string } | null>(initialImage)
+  const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const dropZoneRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     setSelectedImage(initialImage)
   }, [initialImage])
+
+  // Handle drag events
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(true)
+  }
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+  }
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!isDragging) {
+      setIsDragging(true)
+    }
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+    
+    const files = e.dataTransfer.files
+    if (files && files.length > 0) {
+      const file = files[0]
+      if (file && file.type.startsWith("image/")) {
+        const imageData = {
+          file,
+          preview: URL.createObjectURL(file),
+        }
+        setSelectedImage(imageData)
+        onUpdate(imageData)
+      }
+    }
+  }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -47,7 +89,14 @@ const ImagePicker = ({ onUpdate, initialImage = null }) => {
   return (
     <div className="flex flex-col items-center justify-center h-3/4 py-20">
       <h1 className="text-4xl font-bold text-blue-600 mb-6 ">2. WYBIERZ ZDJĘCIE GŁÓWNE</h1>
-      <div className="border-2 border-dashed border-blue-600 rounded-lg p-8 w-3/5 h-full">
+      <div 
+        ref={dropZoneRef}
+        className={`border-2 border-dashed ${isDragging ? 'border-blue-400 bg-blue-50' : 'border-blue-600'} rounded-lg p-8 w-3/5 h-full transition-colors duration-200`}
+        onDragEnter={handleDragEnter}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
         <div className="flex flex-col items-center">
           {!selectedImage ? (
             <>
@@ -66,7 +115,13 @@ const ImagePicker = ({ onUpdate, initialImage = null }) => {
                   <path d="M10 2a1 1 0 011 1v10.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L9 13.586V3a1 1 0 011-1z" />
                 </svg>
               </button>
-              <p className="text-gray-700 font-medium">lub przemieść go tu z foldera</p>
+              <p className="text-gray-700 font-medium">lub przeciągnij i upuść plik tutaj</p>
+              
+              {isDragging && (
+                <div className="mt-4 text-blue-600 font-medium animate-pulse">
+                  Upuść zdjęcie tutaj
+                </div>
+              )}
             </>
           ) : (
             <div className="flex flex-col items-center">
