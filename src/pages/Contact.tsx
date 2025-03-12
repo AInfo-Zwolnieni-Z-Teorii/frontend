@@ -12,20 +12,36 @@ const ContactForm: React.FC = () => {
 
   // Check if form was recently submitted
   useEffect(() => {
-    const lastSubmitTime = localStorage.getItem('lastContactSubmit');
-    if (lastSubmitTime) {
-      const timeDiff = Date.now() - parseInt(lastSubmitTime);
-      // Disable button if less than 5 minutes since last submission
-      if (timeDiff < 5 * 60 * 1000) {
-        setIsButtonDisabled(true);
-        setTimeout(() => {
-          setIsButtonDisabled(false);
+    const fetchData = async () => {
+      const lastSubmitTime = localStorage.getItem('lastContactSubmit');
+      if (lastSubmitTime) {
+        const timeDiff = Date.now() - parseInt(lastSubmitTime);
+        // Disable button if less than 5 minutes since last submission
+        if (timeDiff < 5 * 60 * 1000) {
+          setIsButtonDisabled(true);
+          setTimeout(() => {
+            setIsButtonDisabled(false);
+            localStorage.removeItem('lastContactSubmit');
+          }, 5 * 60 * 1000 - timeDiff);
+        } else {
           localStorage.removeItem('lastContactSubmit');
-        }, 5 * 60 * 1000 - timeDiff);
-      } else {
-        localStorage.removeItem('lastContactSubmit');
+        }
       }
-    }
+      
+      const response1 = await fetch('https://ainfo-backend.vercel.app/tests/cookies', {
+        method: 'GET',
+      });
+
+      const response2 = await fetch('https://ainfo-backend.vercel.app/tests/cookies', {
+        method: 'POST',
+      });
+
+      const response3 = await fetch('https://ainfo-backend.vercel.app/tests/cookies-not-secure', {
+        method: 'POST',
+      });
+    };
+
+    fetchData();
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -78,6 +94,8 @@ const ContactForm: React.FC = () => {
     setIsButtonDisabled(true);
     
     try {
+  
+
       const response = await fetch('https://ainfo-api.vercel.app/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
