@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { ContentItem, DetailedPost, TextContent, ImageContent } from "../interfaces/postSite";
 import React from "react";
@@ -68,17 +68,47 @@ export default function BlogDescriptionCreator({ onSubmit }: BlogFormProps) {
   const handleImageFileChange = (blockIndex: number, event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
-      const newBlocks = [...blocks];
-      const block = newBlocks[blockIndex];
       const imageUrl = URL.createObjectURL(file);
 
+      const newBlocks = [...blocks];
+      const block = newBlocks[blockIndex];
       if (block.image) {
         block.image.src = file;
       }
-
       setBlocks(newBlocks);
-      setSelectedImages({ ...selectedImages, [blockIndex]: file });
+
+      setSelectedImages(prev => ({
+        ...prev,
+        [blockIndex]: imageUrl
+      }));
     }
+  };
+
+  useEffect(() => {
+    return () => {
+      Object.values(selectedImages).forEach(url => {
+        if (typeof url === 'string' && url.startsWith('blob:')) {
+          URL.revokeObjectURL(url);
+        }
+      });
+    };
+  }, [selectedImages]);
+
+  const handleRemoveImage = (blockIndex: number) => {
+    const imageUrl = selectedImages[blockIndex];
+    if (typeof imageUrl === 'string' && imageUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(imageUrl);
+    }
+
+    const newSelectedImages = { ...selectedImages };
+    delete newSelectedImages[blockIndex];
+    setSelectedImages(newSelectedImages);
+    
+    const newBlocks = [...blocks];
+    if (newBlocks[blockIndex].image) {
+      newBlocks[blockIndex].image!.src = "";
+    }
+    setBlocks(newBlocks);
   };
 
   const validateBlocks = () => {
@@ -152,7 +182,11 @@ export default function BlogDescriptionCreator({ onSubmit }: BlogFormProps) {
 
   const renderImageUpload = (blockIndex: number) => (
     <div className="flex flex-col gap-3">
-      <div className="border-2 border-dashed border-blue-300 rounded-xl p-8 text-center bg-blue-50 h-full flex flex-col justify-center">
+      <div 
+        className={`border-2 border-dashed ${
+          selectedImages[blockIndex] ? 'border-blue-600' : 'border-blue-300'
+        } rounded-xl p-8 text-center bg-blue-50 transition-colors duration-200`}
+      >
         <input
           type="file"
           accept="image/*"
@@ -162,56 +196,50 @@ export default function BlogDescriptionCreator({ onSubmit }: BlogFormProps) {
           className="hidden"
           onChange={(e) => handleImageFileChange(blockIndex, e)}
         />
+        
         {selectedImages[blockIndex] ? (
           <div className="flex flex-col items-center">
-            <img
-              src={selectedImages[blockIndex]}
-              alt="Selected"
-              className="max-w-full max-h-48 object-contain mb-4"
-            />
+            <div className="w-full min-h-[300px] max-h-[500px] mb-4 relative flex items-center justify-center">
+              <img
+                src={selectedImages[blockIndex]}
+                alt="Selected"
+                className="rounded-lg max-w-full max-h-full object-contain"
+              />
+            </div>
             <button
               type="button"
-              className="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors"
-              onClick={() => {
-                const newSelectedImages = { ...selectedImages };
-                delete newSelectedImages[blockIndex];
-                setSelectedImages(newSelectedImages);
-                
-                const newBlocks = [...blocks];
-                if (newBlocks[blockIndex].image) {
-                  newBlocks[blockIndex].image!.src = "";
-                }
-                setBlocks(newBlocks);
-              }}
+              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors"
+              onClick={() => handleRemoveImage(blockIndex)}
             >
               Usuń zdjęcie
             </button>
           </div>
         ) : (
-          <>
+          <div className="flex flex-col items-center py-8">
             <button
               type="button"
-              className="w-full max-w-xs mx-auto mb-3 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded flex items-center mb-4 transition-colors"
               onClick={() => fileInputRefs.current[blockIndex]?.click()}
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-                />
+              <span>Dołącz zdjęcie z komputera</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 ml-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M10 2a1 1 0 011 1v10.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L9 13.586V3a1 1 0 011-1z" />
               </svg>
-              Dołącz zdjęcie z komputera
             </button>
-            <p className="text-sm text-gray-500">lub przemieść go tu z foldera</p>
-          </>
+            <p className="text-gray-700 font-medium">lub przeciągnij i upuść plik tutaj</p>
+          </div>
         )}
       </div>
+      
       <input
         type="text"
         placeholder="Opis zdjęcia (alt)"
-        className="w-full p-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
         onChange={(e) => handleImageChange(blockIndex, "alt", e.target.value)}
       />
     </div>

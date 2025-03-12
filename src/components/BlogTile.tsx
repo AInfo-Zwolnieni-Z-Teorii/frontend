@@ -87,22 +87,21 @@ const BlogTile = () => {
 							animate={{ opacity: 1, y: 0 }}
 							exit={{ opacity: 0, y: -20 }}
 							transition={{ duration: 0.5 }}
-							className="flex flex-col md:grid md:grid-cols-[1fr,2fr] place-content-center rounded-lg py-4 min-h-40"
+							className="flex flex-col md:grid md:grid-cols-[1fr,2fr] gap-4 rounded-lg"
 							onClick={() => navigate(`/post/${post.slug}`)}
 						>
-							{/* Image Section */}
-							<div className="">
+							{/* Image Section - 16:9 aspect ratio */}
+							<div className="aspect-[16/9] w-full">
 								<img
 									src={post.thumbnailName}
 									alt={post.title}
-									className="rounded-lg w-full h-auto object-cover "
+									className="rounded-lg w-full h-full object-cover"
 								/>
 							</div>
 
 							{/* Text Content */}
-							<div className="h-full flex flex-col justify-between items-start px-4 lg:py-4">
-								{/* Title */}
-								<h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 hover:text-blue-500 text-left">
+							<div className="flex flex-col justify-between h-full px-4">
+								<h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 hover:text-blue-500 text-left line-clamp-2">
 									{post.title}
 								</h1>
 
@@ -111,7 +110,7 @@ const BlogTile = () => {
 									<div className="flex items-center text-sm text-gray-500 space-x-4">
 										<span className="flex items-center space-x-1">
 											<span className="font-medium">#</span>
-											<span className="hover:text-blue-300">
+											<span className="hover:text-blue-300 truncate max-w-[200px]">
 												{post.categories && post.categories.length > 0
 													? post.categories
 															.map((category) => category.name)

@@ -151,11 +151,13 @@ export default function PostSite() {
 					</aside>
 					
 					<div className="lg:w-3/4 w-full">
-						<img
-							src={post.thumbnailName}
-							alt={post.title}
-							className="w-full rounded-lg shadow-md object-cover aspect-video"
-						/>
+						<div className="w-full h-full aspect-[16/9] bg-gray-100 rounded-lg shadow-md overflow-hidden">
+							<img
+								src={post.thumbnailName}
+								alt={post.title}
+								className="w-full h-full object-cover"
+							/>
+						</div>
 					</div>
 				</div>
 
@@ -173,11 +175,11 @@ export default function PostSite() {
 									);
 								case "image":
 									return (
-										<div key={index} className="w-full">
+										<div key={index} className="max-h-[500px] min-h-[200px] w-full flex items-center justify-center bg-gray-100 rounded-lg shadow-md overflow-hidden px-6 py-6">
 											<img
 												src={item.src}
 												alt={item.alt}
-												className="w-full rounded-lg shadow-md object-cover aspect-video"
+												className="w-full h-full object-contain max-h-[400px]"
 											/>
 										</div>
 									);
@@ -189,11 +191,11 @@ export default function PostSite() {
 												item.layout === "right" ? "lg:flex-row-reverse" : ""
 											}`}
 										>
-											<div className="lg:w-1/2 w-full">
+											<div className="lg:w-1/2 w-full max-h-[400px] min-h-[150px] flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden px-6 py-6">
 												<img
 													src={item.image?.src}
 													alt={item.image?.alt}
-													className="w-full rounded-lg shadow-sm object-cover aspect-[4/3]"
+													className="w-full h-full object-contain max-h-[350px]"
 												/>
 											</div>
 											<div className="lg:w-1/2 w-full">

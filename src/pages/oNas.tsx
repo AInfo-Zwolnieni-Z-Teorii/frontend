@@ -1,55 +1,65 @@
 import React from 'react';
 
-const AboutUs: React.FC = () => {
+const ONas: React.FC = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between min-h-screen bg-black text-white p-8">
-      {/* Text Content */}
-      <div className="md:w-1/2 space-y-8 p-4">
-        <h1 className="text-5xl font-bold mb-12">O NAS</h1>
-        
-        <div className="space-y-6">
-          <div>
-            <h2 className="text-xl font-semibold mb-2">Najlepsze ceny</h2>
-            <p className="text-sm text-gray-300">
-              Nasze ceny są pod ścisłą kontrolą, ponieważ współpracujemy z tysiącami hoteli 
-              i bezpośrednio kilkudziesięciu dostawców. To także oznacza, że zawsze mamy 
-              świetne oferty dla większości kierunków.
+    <div className="py-4 px-2">
+      <div className="w-11/12 md:w-4/5 mx-auto bg-gray-100 rounded-2xl shadow-lg p-4 sm:p-6 md:p-8">
+        {/* First section - Text + Image (side by side on desktop) */}
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-8">
+          <div className="lg:w-1/2 space-y-4">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-bold text-gray-800 mb-4">
+              O nas
+            </h1>
+            
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-gray-700 leading-relaxed">
+              Jesteśmy zespołem pasjonatów sztucznej inteligencji, którzy dzielą się
+              wiedzą na temat jej zastosowań w różnych dziedzinach. Nasza misja to
+              edukowanie, inspirowanie i dostarczanie wartościowych treści dla
+              wszystkich zainteresowanych AI.
+            </p>
+            
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-gray-700 leading-relaxed">
+              Chcemy uczyć, jak używać i wykorzystywać sztuczną inteligencję w
+              codziennym życiu. Pokazujemy, że AI to nie zagrożenie, ale ogromna
+              szansa na rozwój i poprawę jakości życia.
             </p>
           </div>
 
-          <div>
-            <h2 className="text-xl font-semibold mb-2">Hotele na całym świecie</h2>
-            <p className="text-sm text-gray-300">
-              Mamy ponad 100 opcji noclegów na całym świecie. Dotyczy to hoteli, hosteli, 
-              apartamentów, willi a nawet kempingów. Znajdź odpowiednie zakwaterowanie w 
-              dowolnym terminie rok.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold mb-2">Obsługa klienta 24/7</h2>
-            <p className="text-sm text-gray-300">
-              Nasi specjaliści wsparcia Ci w tym pomogą, wybiorą hotel i zarezerwują go. 
-              Jeśli masz problem podczas Twojej podróży, nasz specjalista będzie online i 
-              znajdzie rozwiązanie pod Twój czas.
-            </p>
+          {/* Image - Hidden on mobile */}
+          <div className="hidden lg:block lg:w-1/2">
+            <div className="rounded-2xl overflow-hidden flex items-center justify-center">
+              <img 
+                src="/assets/AINFO_LOGO.png" 
+                alt="AInfo Logo"
+                className="w-full h-auto object-contain max-w-[600px] 2xl:max-w-[800px]"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Image */}
-      <div className="md:w-1/2 p-4">
-        <div className="rounded-[40px] overflow-hidden">
-          <img 
-            src="/assets/hotel-room.jpg" 
-            alt="Luksusowy pokój hotelowy z widokiem na miasto"
-            className="w-full h-full object-cover"
-          />
+        {/* Second section - Text only */}
+        <div className="space-y-6">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-gray-700 leading-relaxed">
+            Naszym celem jest dostarczanie darmowych porad dotyczących obsługi 
+            i praktycznego zastosowania AI, aby każdy mógł skorzystać z tej technologii.
+            Codziennie publikujemy najnowsze informacje na temat osiągnięć w dziedzinie
+            sztucznej inteligencji, analizujemy trendy oraz dzielimy się praktycznymi
+            wskazówkami, które pomagają zarówno nowicjuszom, jak i zaawansowanym użytkownikom
+            rozwijać swoje umiejętności i wykorzystywać AI do swoich potrzeb.
+          </p>
+          
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-gray-700 leading-relaxed">
+            Na naszym blogu znajdziesz poradniki, analizy przypadków oraz eksperckie
+            artykuły, które pomogą Ci lepiej zrozumieć i skutecznie korzystać z AI.
+            Tworzymy społeczność ludzi, którzy wierzą, że sztuczna inteligencja to narzędzie
+            przyszłości, które może poprawić nasze życie i otworzyć nowe możliwości
+            w każdej dziedzinie.
+          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default AboutUs;
+export default ONas;
   
