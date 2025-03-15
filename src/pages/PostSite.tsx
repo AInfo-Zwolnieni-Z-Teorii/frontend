@@ -175,11 +175,11 @@ export default function PostSite() {
 									);
 								case "image":
 									return (
-										<div key={index} className="max-h-[500px] min-h-[200px] w-full flex items-center justify-center bg-gray-100 rounded-lg shadow-md overflow-hidden px-6 py-6">
+										<div key={index} className="w-full bg-gray-100 rounded-lg shadow-md overflow-hidden">
 											<img
 												src={item.src}
 												alt={item.alt}
-												className="w-full h-full object-contain max-h-[400px]"
+												className="w-full h-auto object-contain"
 											/>
 										</div>
 									);
@@ -191,11 +191,11 @@ export default function PostSite() {
 												item.layout === "right" ? "lg:flex-row-reverse" : ""
 											}`}
 										>
-											<div className="lg:w-1/2 w-full max-h-[400px] min-h-[150px] flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden px-6 py-6">
+											<div className="lg:w-1/2 w-full bg-gray-50 rounded-lg overflow-hidden h-full flex">
 												<img
 													src={item.image?.src}
 													alt={item.image?.alt}
-													className="w-full h-full object-contain max-h-[350px]"
+													className="w-full h-full object-cover"
 												/>
 											</div>
 											<div className="lg:w-1/2 w-full">
