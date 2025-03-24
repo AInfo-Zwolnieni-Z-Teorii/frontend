@@ -11,23 +11,26 @@ const Footer = () => {
         {/* Icons container - exactly half width on non-mobile */}
         <div className="w-full md:w-1/2 flex justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10">
           <a 
-            href="#instagram" 
+            href="https://www.instagram.com/ainfo_project/" 
             aria-label="Instagram" 
             className="text-pink-600"
+            target="_blank"
           >
             <FaInstagram className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 3xl:w-28 3xl:h-28 4xl:w-32 4xl:h-32" />
           </a>
           <a 
-            href="#facebook" 
+            href="https://www.facebook.com/groups/1336341120619650/?ref=share&rdid=LZbYprfb0RdIY4Qo&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fg%2F1CniuPP7Co"
             aria-label="Facebook" 
             className="text-blue-600"
+            target="_blank"
           >
             <FaFacebook className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 3xl:w-28 3xl:h-28 4xl:w-32 4xl:h-32" />
           </a>
           <a 
-            href="#tiktok" 
+            href="https://www.tiktok.com/@ainfo_project" 
             aria-label="TikTok" 
             className="text-black"
+            target="_blank"
           >
             <FaTiktok className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 3xl:w-28 3xl:h-28 4xl:w-32 4xl:h-32" />
           </a>
