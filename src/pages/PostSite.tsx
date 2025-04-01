@@ -151,11 +151,11 @@ export default function PostSite() {
 					</aside>
 					
 					<div className="lg:w-3/4 w-full">
-						<div className="w-full h-full aspect-[16/9] bg-gray-100 rounded-lg shadow-md overflow-hidden">
+						<div className="w-full h-full aspect-[16/9] bg-gray-100 rounded-lg shadow-md overflow-hidden flex items-center justify-center">
 							<img
 								src={post.thumbnailName}
 								alt={post.title}
-								className="w-full h-full object-cover"
+								className="w-full h-full object-contain"
 							/>
 						</div>
 					</div>
